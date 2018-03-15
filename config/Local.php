@@ -9,8 +9,8 @@ $wgLogo             = "https://wikitech-static.wikimedia.org/w/images/labswiki.p
 $wgSitename         = "Wikitech";
 $wgPasswordSenderName = "Wikitech-static Mail";
 
-#$wgUploadDirectory = '/srv/mediawiki/images';
 $wgUploadDirectory = '/srv/mediawiki/images/wikitech';
+$wgUploadPath = '/w/images/wikitech';
 
 $wgGroupPermissions['*']['createaccount'] = false;
 
