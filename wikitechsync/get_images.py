@@ -332,10 +332,13 @@ class ImageRetriever(object):
             #print("Getting image with url %s" % url)
             response = self.get_url_with_retries(url, "image {name}".format(name=name))
 
-            if response is not None:
+            if response is None:
+                return False
+            else:
                 with open(output_path, 'wb') as out_file:
                     shutil.copyfileobj(response.raw, out_file)
                 del response
+        return True
 
     def copy_image(self, name):
         '''
@@ -428,16 +431,19 @@ class ImageRetriever(object):
                     prerunfiles.remove(imagepath)
 
             if not self.config['used_only'] or name in images_used:
+                updated=False
                 images_used.remove(name)
                 if self.later_than is None or timestamp > self.later_than:
                     # the new version is more recent that whatever we would have
-                    self.update_image(name)
+                    updated = self.update_image(name)
                 elif not os.path.exists(self.get_image_path(name, self.later_than)):
                     # some insurance in case of a bad run
-                    self.update_image(name)
+                    updated = self.update_image(name)
                 else:
                     # the old image is great. re-use.
-                    self.copy_image(name)
+                    updated = self.copy_image(name)
+                if updated:
+                    images_used.remove(name)
 
         if self.config['all_used']:
             # We've been marking off images in images_used, so now
