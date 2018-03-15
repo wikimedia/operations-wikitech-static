@@ -452,8 +452,9 @@ class ImageRetriever(object):
 
         if self.config['in_place']:
             for abandoned in prerunfiles:
-                print("Cleaning up abandoned file %s" % abandoned)
-                os.remove(abandoned)
+                if '/thumb/' not in abandoned:
+                    print("Cleaning up abandoned file %s" % abandoned)
+                    os.remove(abandoned)
 
 
 def usage(message=None):
