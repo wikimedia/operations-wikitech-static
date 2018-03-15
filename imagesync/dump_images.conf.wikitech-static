@@ -10,3 +10,5 @@ read_timeout=15
 used_only=True
 baseurl=https://upload.wikimedia.org/wikipedia/labs
 in_place=True
+all_used=True
+commonsurl=https://upload.wikimedia.org/wikipedia/commons

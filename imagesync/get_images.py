@@ -267,13 +267,13 @@ class ImageRetriever(object):
             if self.config['db_user'] and self.config['db_password']:
                 print("db credentials acquired")
 
-    def get_image_url(self, name):
+    def get_image_url(self, baseurl, name):
         '''
         given the name of an image, retrieve and return the url
         that could be used to download it
         '''
         path = self.get_image_hashpath(name)
-        return self.baseurl + u"/" + path.decode('utf-8')
+        return baseurl + u"/" + path.decode('utf-8')
 
     def get_url_with_retries(self, url, descr):
         '''
@@ -315,7 +315,7 @@ class ImageRetriever(object):
             return None
         return response
 
-    def update_image(self, name):
+    def update_image(self, name, commons=False):
         '''
         given the name of an image as it appears in the image table,
         get a copy of it and stash in the right place
@@ -324,8 +324,11 @@ class ImageRetriever(object):
         if not os.path.exists(output_path):
             # image might exist if we are rerunning today's dump
             self.make_hashdirs(output_path)
-            url = self.get_image_url(name)
-            print("Getting image with url %s" % url)
+            if commons:
+                url = self.get_image_url(self.config['commonsurl'], name)
+            else:
+                url = self.get_image_url(self.baseurl, name)
+            #print("Getting image with url %s" % url)
             response = self.get_url_with_retries(url, "image {name}".format(name=name))
 
             if response is not None:
@@ -424,6 +427,7 @@ class ImageRetriever(object):
                     prerunfiles.remove(imagepath)
 
             if not self.config['used_only'] or name in images_used:
+                images_used.remove(name)
                 if self.later_than is None or timestamp > self.later_than:
                     # the new version is more recent that whatever we would have
                     self.update_image(name)
@@ -433,6 +437,17 @@ class ImageRetriever(object):
                 else:
                     # the old image is great. re-use.
                     self.copy_image(name)
+
+        if self.config['all_used']:
+            # We've been marking off images in images_used, so now
+            # it contains only the used images that we haven't already downloaded.
+            # We don't have timestamps for these, so just grab them all.
+            for name in images_used:
+                imagepath = self.get_image_path(name)
+                if imagepath in prerunfiles:
+                    prerunfiles.remove(imagepath)
+
+                self.update_image(name, commons=True)
 
         if self.config['in_place']:
             for abandoned in prerunfiles:
@@ -573,6 +588,18 @@ def get_config(configfile):
         in_place = conf.get("images", "in_place")
         if in_place != 'false' and in_place != 'False' and in_place != "0":
             settings['in_place'] = bool(in_place)
+
+    # all_used will look on commons for images that are linked but
+    #  not present locally
+    settings['all_used'] = False
+    if conf.has_option('images', 'all_used'):
+        all_used = conf.get("images", "all_used")
+        if all_used != 'false' and all_used != 'False' and all_used != "0":
+            settings['all_used'] = bool(all_used)
+            if conf.has_option('images', 'commonsurl'):
+                settings['commonsurl'] = conf.get("images", "commonsurl")
+            else:
+                raise RuntimeError("commonsurl must be specified if all_used is set.")
 
     settings['baseurl'] = None
     if conf.has_option('images', 'baseurl'):
