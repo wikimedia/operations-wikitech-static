@@ -432,7 +432,6 @@ class ImageRetriever(object):
 
             if not self.config['used_only'] or name in images_used:
                 updated=False
-                images_used.remove(name)
                 if self.later_than is None or timestamp > self.later_than:
                     # the new version is more recent that whatever we would have
                     updated = self.update_image(name)
