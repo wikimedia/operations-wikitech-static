@@ -1,0 +1,8 @@
+on wikitech-static, these should be symlinked to
+
+etc/apache/sites-available
+
+and from there, to
+
+etc/apache/sites-enabled
+
