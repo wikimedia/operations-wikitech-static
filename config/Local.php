@@ -10,7 +10,7 @@ $wgSitename         = "Wikitech";
 $wgPasswordSenderName = "Wikitech-static Mail";
 
 #$wgUploadDirectory = '/srv/mediawiki/images';
-$wgUploadDirectory = '/srv/mediawiki/imagedumps/wikitech';
+$wgUploadDirectory = '/srv/mediawiki/images/wikitech';
 
 $wgGroupPermissions['*']['createaccount'] = false;
 
