@@ -1,0 +1,12 @@
+[images]
+basedir=/srv/mediawiki/imagedumps
+mediawiki=/srv/mediawiki/w
+hashlevels=2
+php=/usr/bin/php
+mysql=/usr/bin/mysql
+maxpacket=16M
+conn_timeout=5
+read_timeout=15
+used_only=True
+baseurl=https://upload.wikimedia.org/wikipedia/labs
+in_place=True

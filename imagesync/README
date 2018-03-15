@@ -1,0 +1,5 @@
+This script is invoked periodically via import-wikitech.sh,
+which is itself invoked by a daily cron.
+
+It copies updated versions of all on-wiki images from the main cluster and
+stores them locally.
