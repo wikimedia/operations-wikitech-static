@@ -1,5 +1,5 @@
 This is the wikitech-static mediawiki config.
 
-All of the files here should be symlinked to /srv/mediawiki/config
+All of the files here should be copied to /srv/mediawiki/config
 with the exception of Private.php which should be copied and filled in
 with appropriate values.
