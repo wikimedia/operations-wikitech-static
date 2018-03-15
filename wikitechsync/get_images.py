@@ -291,10 +291,11 @@ class ImageRetriever(object):
                 # but it could be too many redirects too, who knows
                 del response
                 response = None
-            count += 1
             if response and response.status_code == 200:
                 return response
-            time.sleep(self.config['retry_wait'])
+            if (count < self.config['retries']):
+                time.sleep(self.config['retry_wait'])
+            count += 1
 
         del response
         return None
