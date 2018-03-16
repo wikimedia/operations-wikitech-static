@@ -336,6 +336,7 @@ class ImageRetriever(object):
                 return False
             else:
                 with open(output_path, 'wb') as out_file:
+                    response.raw.decode_content = True
                     shutil.copyfileobj(response.raw, out_file)
                 del response
         return True
