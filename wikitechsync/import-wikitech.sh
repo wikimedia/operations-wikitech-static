@@ -6,7 +6,7 @@ DATE=$(date '+%Y%m%d')
 
 wget https://wikitech.wikimedia.org/dumps/labswiki-${DATE}.xml.gz -O /srv/imports/labswiki-${DATE}.xml.gz -4
 cd /srv/mediawiki/w
-php maintenance/importDump.php /srv/imports/labswiki-${DATE}.xml.gz
+php maintenance/importDump.php --uploads /srv/imports/labswiki-${DATE}.xml.gz
 php maintenance/rebuildrecentchanges.php
 php maintenance/rebuildImages.php --missing
 
