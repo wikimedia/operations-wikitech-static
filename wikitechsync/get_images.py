@@ -454,7 +454,14 @@ class ImageRetriever(object):
                 if imagepath in prerunfiles:
                     prerunfiles.remove(imagepath)
 
-                self.update_image(name, commons=True)
+                # Sometimes we get here and the image is a local
+                # upload and in image_links but not in the image table.
+                # How is that possible?  I've no idea, but make one
+                # last attempt at a wikitech download before grabbing
+                # from commons.
+                if not self.update_image(name):
+                    # If we haven't found it by now, it must be on commons.
+                    self.update_image(name, commons=True)
 
         if self.config['in_place']:
             for abandoned in prerunfiles:
