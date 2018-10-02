@@ -24,4 +24,4 @@ $wgInterwikiCache = include_once( "/srv/mediawiki/config/interwiki.php" );
 
 $wgDebugComments = true;
 
-$wgSitenotice = "You are browsing a read-only backup copy of Wikitech. The live site can be found at [https://wikitech.wikimedia.org wikitech.wikimedia.org]";
+$wgSiteNotice = "You are browsing a read-only backup copy of Wikitech. The live site can be found at [https://wikitech.wikimedia.org wikitech.wikimedia.org]";
