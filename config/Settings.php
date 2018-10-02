@@ -118,7 +118,7 @@ $wgScribuntoDefaultEngine = 'luastandalone';
 $wgScribuntoUseGeSHi = true;
 $wgScribuntoUseCodeEditor = true;
 
-require_once( "$IP/extensions/ConfirmEdit/ConfirmEdit.php" );
+wfLoadExtension( "ConfirmEdit" );
 require_once( "$IP/extensions/ConfirmEdit/FancyCaptcha.php" );
 $wgCaptchaClass = 'FancyCaptcha';
 $wgCaptchaDirectory = '/srv/org/wikimedia/controller/wikis/captcha';
@@ -146,10 +146,10 @@ require_once( "$IP/extensions/CategoryTree/CategoryTree.php" );
 
 require_once( "$IP/extensions/ParserFunctions/ParserFunctions.php");
 
-require_once( "$IP/extensions/TitleBlacklist/TitleBlacklist.php" );
+wfLoadExtension( "TitleBlacklist" );
 $wgTitleBlacklistSources = array(
 	array(
-		'type' => TBLSRC_LOCALPAGE,
+		'type' => 'localpage',
 		'src'  => 'MediaWiki:Titleblacklist',
 	),
 );
