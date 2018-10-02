@@ -6,7 +6,13 @@ DATE=$(date '+%Y%m%d')
 
 wget https://wikitech.wikimedia.org/dumps/labswiki-${DATE}.xml.gz -O /srv/imports/labswiki-${DATE}.xml.gz -4
 cd /srv/mediawiki/w
+
+# Do this once without --uploads in case --uploads crashes:
+php maintenance/importDump.php /srv/imports/labswiki-${DATE}.xml.gz
+
+# Now try to get images if we can:
 php maintenance/importDump.php --uploads /srv/imports/labswiki-${DATE}.xml.gz
+
 php maintenance/rebuildrecentchanges.php
 php maintenance/rebuildImages.php --missing
 
