@@ -119,7 +119,7 @@ $wgScribuntoUseGeSHi = true;
 $wgScribuntoUseCodeEditor = true;
 
 wfLoadExtension( "ConfirmEdit" );
-require_once( "$IP/extensions/ConfirmEdit/FancyCaptcha.php" );
+wfLoadExtension( "ConfirmEdit/FancyCaptcha" );
 $wgCaptchaClass = 'FancyCaptcha';
 $wgCaptchaDirectory = '/srv/org/wikimedia/controller/wikis/captcha';
 $wgCaptchaDirectoryLevels = 0;
@@ -134,19 +134,17 @@ require_once( "$IP/extensions/DynamicSidebar/DynamicSidebar.php" );
 
 require_once( "$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php" );
 
-require_once( "$IP/extensions/Cite/Cite.php" );
+wfLoadExtension( "Cite" );
 
 //require_once( "$IP/extensions/Vector/Vector.php" );
 //$wgDefaultUserOptions['vector-collapsiblenav'] = 1;
 //$wgVectorUseSimpleSearch = true;
 
-require_once( "$IP/extensions/Gadgets/Gadgets.php" );
-
-require_once( "$IP/extensions/CategoryTree/CategoryTree.php" );
-
-require_once( "$IP/extensions/ParserFunctions/ParserFunctions.php");
-
+wfLoadExtension( "Gadgets" );
+wfLoadExtension( "CategoryTree" );
+wfLoadExtension( "ParserFunctions" );
 wfLoadExtension( "TitleBlacklist" );
+
 $wgTitleBlacklistSources = array(
 	array(
 		'type' => 'localpage',
@@ -168,4 +166,3 @@ require_once( "Debug.php" );
 
 $wgDebugLogGroups["dynamic-sidebar"] = "/tmp/sidebar-debug.txt";
 $wgDebugLogGroups["T125695"] = "/tmp/T125695-debug.txt";
-

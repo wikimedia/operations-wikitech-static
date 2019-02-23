@@ -18,10 +18,10 @@ $wgExtraNamespaces[110] = 'Obsolete';
 $wgExtraNamespaces[111] = 'Obsolete_talk';
 $wgNamespacesWithSubpages[110] = true;
 
-require_once "$IP/skins/Vector/Vector.php";
-
 $wgInterwikiCache = include_once( "/srv/mediawiki/config/interwiki.php" );
+wfLoadSkins( [ 'Vector', 'MonoBook', 'Modern', 'CologneBlue', 'Timeless' ] );
 
 $wgDebugComments = true;
+$wgLoadFileinfoExtension = true;
 
 $wgSiteNotice = "You are browsing a read-only backup copy of Wikitech. The live site can be found at [https://wikitech.wikimedia.org wikitech.wikimedia.org]";
