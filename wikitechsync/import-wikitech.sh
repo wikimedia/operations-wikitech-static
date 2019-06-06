@@ -23,5 +23,5 @@ chown -R www-data /srv/mediawiki/images/wikitech
 chgrp -R www-data /srv/mediawiki/images/wikitech
 
 php maintenance/rebuildImages.php --missing
-service apache2 graceful
-service memcached restart
+/usr/sbin/service apache2 graceful
+/usr/sbin/service memcached restart
