@@ -112,7 +112,7 @@ $wgSVGConverter = 'rsvg-secure';
 $wgDefaultUserOptions['usebetatoolbar'] = 1;
 $wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
 
-require_once( "$IP/extensions/Echo/Echo.php" );
+wfLoadExtension( "Echo" );
 require_once( "$IP/extensions/Scribunto/Scribunto.php" );
 $wgScribuntoDefaultEngine = 'luastandalone';
 $wgScribuntoUseGeSHi = true;
@@ -130,7 +130,7 @@ $wgCaptchaTriggers['addurl']        = false;
 
 require_once( "$IP/extensions/Renameuser/Renameuser.php" );
 
-require_once( "$IP/extensions/DynamicSidebar/DynamicSidebar.php" );
+wfLoadExtension( "DynamicSidebar" );
 
 require_once( "$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php" );
 
@@ -156,8 +156,7 @@ require_once( "$IP/extensions/PdfHandler/PdfHandler.php" );
 
 require_once( "$IP/extensions/TitleKey/TitleKey.php" );
 
-require_once( "$IP/extensions/EventLogging/EventLogging.php" );
-
+wfLoadExtension( 'EventLogging' );
 wfLoadExtension( 'TemplateStyles' );
 
 require_once( "Local.php" );
