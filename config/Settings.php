@@ -113,7 +113,7 @@ $wgDefaultUserOptions['usebetatoolbar'] = 1;
 $wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
 
 wfLoadExtension( "Echo" );
-require_once( "$IP/extensions/Scribunto/Scribunto.php" );
+wfLoadExtension( "Scribunto" );
 $wgScribuntoDefaultEngine = 'luastandalone';
 $wgScribuntoUseGeSHi = true;
 $wgScribuntoUseCodeEditor = true;
@@ -128,11 +128,10 @@ $wgGroupPermissions['accountcreators']['skipcaptcha'] = true;
 $wgGroupPermissions['bots']['skipcaptcha'] = true;
 $wgCaptchaTriggers['addurl']        = false;
 
-require_once( "$IP/extensions/Renameuser/Renameuser.php" );
-
+wfLoadExtension( "Renameuser" );
 wfLoadExtension( "DynamicSidebar" );
 
-require_once( "$IP/extensions/SyntaxHighlight_GeSHi/SyntaxHighlight_GeSHi.php" );
+wfLoadExtension( "SyntaxHighlight_GeSHi" );
 
 wfLoadExtension( "Cite" );
 
@@ -152,7 +151,7 @@ $wgTitleBlacklistSources = array(
 	),
 );
 
-require_once( "$IP/extensions/PdfHandler/PdfHandler.php" );
+wfLoadExtension( 'PdfHandler' );
 
 require_once( "$IP/extensions/TitleKey/TitleKey.php" );
 
