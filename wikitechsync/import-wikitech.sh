@@ -7,6 +7,11 @@ DATE=$(date '+%Y%m%d')
 wget https://wikitech.wikimedia.org/dumps/labswiki-${DATE}.xml.gz -O /srv/imports/labswiki-${DATE}.xml.gz -4
 cd /srv/mediawiki/w
 
+# Remove any previous config/interface pages before importing.
+# This will lose some history but will keep the actual function
+# of the wiki in sync
+php maintenance/nukeNS.php --ns 8 --all --delete
+
 # Do this once without --uploads in case --uploads crashes:
 php maintenance/importDump.php /srv/imports/labswiki-${DATE}.xml.gz
 
