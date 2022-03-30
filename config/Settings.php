@@ -49,11 +49,9 @@ $wgCacheDirectory = "$IP/cache";
 
 $wgMainCacheType    = CACHE_MEMCACHED;
 $wgParserCacheType = CACHE_MEMCACHED;
-$wgMessageCacheType = CACHE_MEMCACHED; 
+$wgMessageCacheType = CACHE_MEMCACHED;
 $wgSessionsInMemcached = true;
-$wgMemCachedServers = array( '127.0.0.1:11211' );
-
-$wgInterwikiCache = "$wgCacheDirectory/interwiki.cdb";
+$wgMemCachedServers = [ '127.0.0.1:11211' ];
 
 $wgCacheEpoch = "20160209022930";
 
@@ -104,7 +102,7 @@ $wgNamespacesWithSubpages[NS_TEMPLATE] = true;
 
 $wgEmailConfirmToEdit = true;
 # Disabling SVG for now
-$wgFileExtensions = array( 'png', 'gif', 'jpg', 'jpeg', 'xcf', 'pdf', 'mid', 'ogg', 'ogv', 'svg', 'djvu', 'tiff', 'tif', 'ogg', 'ogv', 'oga', 'webm' );
+$wgFileExtensions = [ 'png', 'gif', 'jpg', 'jpeg', 'xcf', 'pdf', 'mid', 'ogg', 'ogv', 'svg', 'djvu', 'tiff', 'tif', 'ogg', 'ogv', 'oga', 'webm' ];
 $wgMaxShellMemory = 302400;
 $wgSVGConverters['rsvg-secure'] = '$path/rsvg-convert -w $width -h $height -o $output < $input';
 $wgSVGConverter = 'rsvg-secure';
@@ -112,14 +110,14 @@ $wgSVGConverter = 'rsvg-secure';
 $wgDefaultUserOptions['usebetatoolbar'] = 1;
 $wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
 
-wfLoadExtension( "Echo" );
-wfLoadExtension( "Scribunto" );
+wfLoadExtension( 'Echo' );
+wfLoadExtension( 'Scribunto' );
 $wgScribuntoDefaultEngine = 'luastandalone';
 $wgScribuntoUseGeSHi = true;
 $wgScribuntoUseCodeEditor = true;
 
-wfLoadExtension( "ConfirmEdit" );
-wfLoadExtension( "ConfirmEdit/FancyCaptcha" );
+wfLoadExtension( 'ConfirmEdit' );
+wfLoadExtension( 'ConfirmEdit/FancyCaptcha' );
 $wgCaptchaClass = 'FancyCaptcha';
 $wgCaptchaDirectory = '/srv/org/wikimedia/controller/wikis/captcha';
 $wgCaptchaDirectoryLevels = 0;
@@ -128,39 +126,36 @@ $wgGroupPermissions['accountcreators']['skipcaptcha'] = true;
 $wgGroupPermissions['bots']['skipcaptcha'] = true;
 $wgCaptchaTriggers['addurl']        = false;
 
-wfLoadExtension( "Renameuser" );
-wfLoadExtension( "DynamicSidebar" );
+wfLoadExtension( 'Renameuser' );
 
-wfLoadExtension( "SyntaxHighlight_GeSHi" );
+wfLoadExtension( "DynamicSidebar' );
 
-wfLoadExtension( "Cite" );
+wfLoadExtension( 'SyntaxHighlight_GeSHi' );
 
-//require_once( "$IP/extensions/Vector/Vector.php" );
-//$wgDefaultUserOptions['vector-collapsiblenav'] = 1;
-//$wgVectorUseSimpleSearch = true;
+wfLoadExtension( 'Cite' );
 
-wfLoadExtension( "Gadgets" );
-wfLoadExtension( "CategoryTree" );
-wfLoadExtension( "ParserFunctions" );
-wfLoadExtension( "TitleBlacklist" );
+wfLoadExtension( 'Gadgets' );
+wfLoadExtension( 'CategoryTree' );
+wfLoadExtension( 'ParserFunctions' );
+wfLoadExtension( 'TitleBlacklist' );
 
-$wgTitleBlacklistSources = array(
-	array(
+$wgTitleBlacklistSources = [
+	[
 		'type' => 'localpage',
 		'src'  => 'MediaWiki:Titleblacklist',
-	),
-);
+	],
+];
 
 wfLoadExtension( 'PdfHandler' );
 
-require_once( "$IP/extensions/TitleKey/TitleKey.php" );
+wfLoadExtension( 'TitleKey' );
 
 wfLoadExtension( 'EventLogging' );
 wfLoadExtension( 'TemplateStyles' );
 
-require_once( "Local.php" );
-require_once( "Private.php" );
-require_once( "Debug.php" );
+require_once( 'Local.php' );
+require_once( 'Private.php' );
+require_once( 'Debug.php' );
 
-$wgDebugLogGroups["dynamic-sidebar"] = "/tmp/sidebar-debug.txt";
-$wgDebugLogGroups["T125695"] = "/tmp/T125695-debug.txt";
+$wgDebugLogGroups['dynamic-sidebar'] = '/tmp/sidebar-debug.txt';
+$wgDebugLogGroups['T125695'] = '/tmp/T125695-debug.txt';

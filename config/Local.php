@@ -19,7 +19,7 @@ $wgExtraNamespaces[111] = 'Obsolete_talk';
 $wgNamespacesWithSubpages[110] = true;
 
 $wgInterwikiCache = include_once( "/srv/mediawiki/config/interwiki.php" );
-wfLoadSkins( [ 'Vector' ] );
+wfLoadSkin( 'Vector' );
 
 $wgDebugComments = true;
 $wgLoadFileinfoExtension = true;

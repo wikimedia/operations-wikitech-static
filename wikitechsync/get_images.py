@@ -201,6 +201,7 @@ class ImageRetriever(object):
         get the value for a mediawiki setting via mw maintenance script
         '''
         script = " ".join(self.get_mw_script_cmd("getConfiguration.php"))
+        # command = '{php} {script} --wiki={wiki} --group=dump --format=json --regex={setting}'
         command = '{php} {script} --wiki={wiki} --format=json --regex={setting}'
         command = command.format(php=self.config['php'], script=script,
                                  wiki=self.wiki, setting=setting)

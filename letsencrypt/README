@@ -1,6 +1,1 @@
-This is the (renewal) config for certbot (Letsencrypt). The file belongs in /etc/letsencrypt/renewal.
-
-The auth method has been changed from apache to "webroot" to avoid https://phabricator.wikimedia.org/T214640
-
-The "account =" has been redacted (even though maybe that isn't necessary).
-
+These files need to be linked to /etc/letsencrypt/
