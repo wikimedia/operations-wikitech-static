@@ -66,8 +66,6 @@ $wgDisableCounters = true;
 $wgAllowUserCss = true;
 $wgAllowUserJs = true;
 
-// $wgAppleTouchIcon = '/Wikitech-apple-touch-icon.png'; -- removed by AM 2016-02-09 per https://phabricator.wikimedia.org/T102699
-
 # Anons can't edit
 $wgGroupPermissions['*']['edit'] = false;
 
@@ -116,19 +114,9 @@ $wgScribuntoDefaultEngine = 'luastandalone';
 $wgScribuntoUseGeSHi = true;
 $wgScribuntoUseCodeEditor = true;
 
-wfLoadExtension( 'ConfirmEdit' );
-wfLoadExtension( 'ConfirmEdit/FancyCaptcha' );
-$wgCaptchaClass = 'FancyCaptcha';
-$wgCaptchaDirectory = '/srv/org/wikimedia/controller/wikis/captcha';
-$wgCaptchaDirectoryLevels = 0;
-$wgCaptchaWhitelist = '#^(https?:)?//([.a-z0-9-]+\\.)?((wikidata|wikimedia|wikipedia|wiktionary|wikiquote|wikibooks|wikisource|wikispecies|mediawiki|wikimediafoundation|wikinews|wikiversity|wikivoyage)\.org|dnsstuff\.com|completewhois\.com|wikimedia\.de|toolserver\.org)(/|$)#i';
-$wgGroupPermissions['accountcreators']['skipcaptcha'] = true;
-$wgGroupPermissions['bots']['skipcaptcha'] = true;
-$wgCaptchaTriggers['addurl']        = false;
-
 wfLoadExtension( 'Renameuser' );
 
-wfLoadExtension( "DynamicSidebar' );
+wfLoadExtension( 'DynamicSidebar' );
 
 wfLoadExtension( 'SyntaxHighlight_GeSHi' );
 
@@ -152,6 +140,14 @@ wfLoadExtension( 'TitleKey' );
 
 wfLoadExtension( 'EventLogging' );
 wfLoadExtension( 'TemplateStyles' );
+
+// https://www.mediawiki.org/w/index.php?title=Manual:Hooks/SkinTemplateNavigation::Universal&oldid=5531640#Add_a_link_to_a_menu
+$wgHooks['SkinTemplateNavigation::Universal'][] = function ( $skinTemplate, &$links ) {
+	unset( $links['user-menu']['createaccount'] );
+	unset( $links['user-menu']['login'] );
+	unset( $links['user-menu']['login-private'] );
+	unset( $links['user-menu']['anoncontribs'] );
+};
 
 require_once( 'Local.php' );
 require_once( 'Private.php' );
