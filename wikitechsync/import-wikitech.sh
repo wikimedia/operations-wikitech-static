@@ -4,7 +4,7 @@
 
 DATE=$(date '+%Y%m%d')
 
-wget https://wikitech.wikimedia.org/dumps/labswiki-${DATE}.xml.gz -O /srv/imports/labswiki-${DATE}.xml.gz -4
+wget https://dumps.wikimedia.org/other/wikitech/labswiki-${DATE}.xml.gz -O /srv/imports/labswiki-${DATE}.xml.gz -4
 cd /srv/mediawiki/w
 
 # Remove any previous config/interface pages before importing.
