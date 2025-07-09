@@ -90,7 +90,7 @@ class ImageRetriever(object):
         """
         get db info for the wiki so we can get a mysql connection later
         """
-        command = " ".join(self.get_mw_script_cmd("getSlaveServer.php"))
+        command = " ".join(self.get_mw_script_cmd("getReplicaServer.php"))
         command = "{php} {command} --wiki={dbname}".format(
             php=self.config['php'], command=command, dbname=self.wiki)
         dumpcommand = command + " --group=dump"
