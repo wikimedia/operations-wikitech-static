@@ -1,5 +1,9 @@
 <?php
 
+require_once( "Local.php" );
+require_once( "Private.php" );
+require_once( "Debug.php" );
+
 $wgScriptPath       = "/w";
 $wgScriptExtension  = ".php";
 $wgArticlePath = '/wiki/$1';
@@ -51,7 +55,7 @@ $wgMainCacheType    = CACHE_MEMCACHED;
 $wgParserCacheType = CACHE_MEMCACHED;
 $wgMessageCacheType = CACHE_MEMCACHED;
 $wgSessionsInMemcached = true;
-$wgMemCachedServers = [ '127.0.0.1:11211' ];
+$wgMemCachedServers = array( '127.0.0.1:11211' );
 
 $wgCacheEpoch = "20160209022930";
 
@@ -65,6 +69,8 @@ $wgDisableCounters = true;
 
 $wgAllowUserCss = true;
 $wgAllowUserJs = true;
+
+// $wgAppleTouchIcon = '/Wikitech-apple-touch-icon.png'; -- removed by AM 2016-02-09 per https://phabricator.wikimedia.org/T102699
 
 # Anons can't edit
 $wgGroupPermissions['*']['edit'] = false;
@@ -100,7 +106,7 @@ $wgNamespacesWithSubpages[NS_TEMPLATE] = true;
 
 $wgEmailConfirmToEdit = true;
 # Disabling SVG for now
-$wgFileExtensions = [ 'png', 'gif', 'jpg', 'jpeg', 'xcf', 'pdf', 'mid', 'ogg', 'ogv', 'svg', 'djvu', 'tiff', 'tif', 'ogg', 'ogv', 'oga', 'webm' ];
+$wgFileExtensions = array( 'png', 'gif', 'jpg', 'jpeg', 'xcf', 'pdf', 'mid', 'ogg', 'ogv', 'svg', 'djvu', 'tiff', 'tif', 'ogg', 'ogv', 'oga', 'webm' );
 $wgMaxShellMemory = 302400;
 $wgSVGConverters['rsvg-secure'] = '$path/rsvg-convert -w $width -h $height -o $output < $input';
 $wgSVGConverter = 'rsvg-secure';
@@ -108,50 +114,60 @@ $wgSVGConverter = 'rsvg-secure';
 $wgDefaultUserOptions['usebetatoolbar'] = 1;
 $wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
 
-wfLoadExtension( 'Echo' );
-wfLoadExtension( 'Scribunto' );
+wfLoadExtension( "Echo" );
+wfLoadExtension( "Scribunto" );
 $wgScribuntoDefaultEngine = 'luastandalone';
 $wgScribuntoUseGeSHi = true;
 $wgScribuntoUseCodeEditor = true;
 
-wfLoadExtension( 'Renameuser' );
+wfLoadExtension( "ConfirmEdit" );
+wfLoadExtension( "ConfirmEdit/FancyCaptcha" );
+$wgCaptchaClass = 'FancyCaptcha';
+$wgCaptchaDirectory = '/srv/org/wikimedia/controller/wikis/captcha';
+$wgCaptchaDirectoryLevels = 0;
+$wgCaptchaWhitelist = '#^(https?:)?//([.a-z0-9-]+\\.)?((wikidata|wikimedia|wikipedia|wiktionary|wikiquote|wikibooks|wikisource|wikispecies|mediawiki|wikimediafoundation|wikinews|wikiversity|wikivoyage)\.org|dnsstuff\.com|completewhois\.com|wikimedia\.de|toolserver\.org)(/|$)#i';
+$wgGroupPermissions['accountcreators']['skipcaptcha'] = true;
+$wgGroupPermissions['bots']['skipcaptcha'] = true;
+$wgCaptchaTriggers['addurl']        = false;
 
-wfLoadExtension( 'DynamicSidebar' );
+// wfLoadExtension( "Renameuser" );
+// wfLoadExtension( "DynamicSidebar" );
 
-wfLoadExtension( 'SyntaxHighlight_GeSHi' );
+wfLoadExtension( "SyntaxHighlight_GeSHi" );
 
-wfLoadExtension( 'Cite' );
+wfLoadExtension( "Cite" );
 
-wfLoadExtension( 'Gadgets' );
-wfLoadExtension( 'CategoryTree' );
-wfLoadExtension( 'ParserFunctions' );
-wfLoadExtension( 'TitleBlacklist' );
+//require_once( "$IP/extensions/Vector/Vector.php" );
+//$wgDefaultUserOptions['vector-collapsiblenav'] = 1;
+//$wgVectorUseSimpleSearch = true;
 
-$wgTitleBlacklistSources = [
-	[
+wfLoadExtension( "Gadgets" );
+wfLoadExtension( "CategoryTree" );
+wfLoadExtension( "ParserFunctions" );
+wfLoadExtension( "TitleBlacklist" );
+
+$wgTitleBlacklistSources = array(
+	array(
 		'type' => 'localpage',
 		'src'  => 'MediaWiki:Titleblacklist',
-	],
-];
+	),
+);
 
 wfLoadExtension( 'PdfHandler' );
 
 wfLoadExtension( 'TitleKey' );
 
-wfLoadExtension( 'EventLogging' );
+# wfLoadExtension( 'EventLogging' );
 wfLoadExtension( 'TemplateStyles' );
 
-// https://www.mediawiki.org/w/index.php?title=Manual:Hooks/SkinTemplateNavigation::Universal&oldid=5531640#Add_a_link_to_a_menu
+wfLoadExtension( 'LabeledSectionTransclusion' );
+
+$wgDebugLogGroups["dynamic-sidebar"] = "/tmp/sidebar-debug.txt";
+$wgDebugLogGroups["T125695"] = "/tmp/T125695-debug.txt";
+
 $wgHooks['SkinTemplateNavigation::Universal'][] = function ( $skinTemplate, &$links ) {
-	unset( $links['user-menu']['createaccount'] );
-	unset( $links['user-menu']['login'] );
-	unset( $links['user-menu']['login-private'] );
-	unset( $links['user-menu']['anoncontribs'] );
+  unset( $links['user-menu']['createaccount'] );
+  unset( $links['user-menu']['login'] );
+  unset( $links['user-menu']['login-private'] );
+  unset( $links['user-menu']['anoncontribs'] );
 };
-
-require_once( 'Local.php' );
-require_once( 'Private.php' );
-require_once( 'Debug.php' );
-
-$wgDebugLogGroups['dynamic-sidebar'] = '/tmp/sidebar-debug.txt';
-$wgDebugLogGroups['T125695'] = '/tmp/T125695-debug.txt';
